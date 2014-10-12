@@ -102,6 +102,7 @@
     //Set the other defaults
     _applyBlurToBackground = NO;
     _statusPosition = M13ProgressHUDStatusPositionBelowProgress;
+    _margin = 20.0;
     _contentMargin = 20.0;
     _cornerRadius = 20.0;
     _maskType = M13ProgressHUDMaskTypeNone;
@@ -188,6 +189,13 @@
 - (void)setContentMargin:(CGFloat)contentMargin
 {
     _contentMargin = contentMargin;
+    [self setNeedsLayout];
+}
+
+
+- (void)setMargin:(CGFloat)margin
+{
+    _margin = margin;
     [self setNeedsLayout];
 }
 
@@ -433,7 +441,8 @@
     //Setup the background rect
     CGRect backgroundRect = CGRectZero;
     //Setup the label rect
-    CGRect statusRect = [optimalStatusString boundingRectWithSize:[UIScreen mainScreen].bounds.size options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName : statusLabel.font} context:nil];
+    CGSize limits = CGSizeMake(self.bounds.size.width - _margin * 2 - _contentMargin * 2, self.bounds.size.height - _margin * 2 - _contentMargin * 2);
+    CGRect statusRect = [optimalStatusString boundingRectWithSize:limits options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName : statusLabel.font} context:nil];
     //Setup the progress rect
     CGRect progressRect = CGRectMake(0, 0, _progressViewSize.width, _progressViewSize.height);
     
@@ -449,6 +458,7 @@
             //Calculate background width
             backgroundRect.size.width = (statusRect.size.width > _progressViewSize.width) ? statusRect.size.width : _progressViewSize.width;
             backgroundRect.size.width += 2 * _contentMargin;
+            backgroundRect.size.width = MIN(backgroundRect.size.width, self.bounds.size.width - _margin * 2);
             if (backgroundRect.size.width < _minimumSize.width) {
                 backgroundRect.size.width = _minimumSize.width;
             }

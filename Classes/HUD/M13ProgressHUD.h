@@ -69,6 +69,8 @@ typedef enum {
 @property (nonatomic, assign) UIOffset offsetFromCenter;
 /**The margin between the edge of the HUD and it's progress view and status label.*/
 @property (nonatomic, assign) CGFloat contentMargin;
+/**The margin between the edge of the HUD and the super view.*/
+@property (nonatomic, assign) CGFloat margin;
 /**The corner radius of the HUD view.*/
 @property (nonatomic, assign) CGFloat cornerRadius;
 /**The type of mask the HUD displays over the view's content.*/
