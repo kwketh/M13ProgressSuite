@@ -147,7 +147,7 @@
 {
     _backgroundRingWidth = backgroundRingWidth;
     _backgroundLayer.lineWidth = _backgroundRingWidth;
-    _backgroundRingWidthOverriden = YES;
+    _progressRingWidthOverriden = YES;
     [self setNeedsDisplay];
 }
 
@@ -468,10 +468,14 @@
     CGFloat radius = (self.bounds.size.width - _backgroundRingWidth) / 2.0;
     
     //If indeterminate, recalculate the end angle
-    if (self.indeterminate) {
+    
+    if (self.progress >= 1.0f) {
+        endAngle = 1.0 * endAngle;
+    }
+    else if (self.indeterminate) {
         endAngle = .8 * endAngle;
     }
-    
+
     //Draw path
     UIBezierPath *path = [UIBezierPath bezierPath];
     path.lineWidth = _progressRingWidth;
