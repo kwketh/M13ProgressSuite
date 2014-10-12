@@ -94,6 +94,8 @@ typedef enum {
 @property (nonatomic, assign) CGSize minimumSize;
 /**Wether or not to dismiss automatically after an action is performed.*/
 @property (nonatomic, assign) BOOL dismissAfterAction;
+/**Wether to dismiss the view after a tap */
+@property (nonatomic, assign) BOOL dismissOnTap;
 /**Wether or not the HUD is currenty visible.*/
 - (BOOL)isVisible;
 /**Wether or not the HUD will auto rotate to the device orientation.

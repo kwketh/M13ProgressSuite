@@ -26,6 +26,7 @@
     UIView *maskView;
     UILabel *statusLabel;
     NSString *optimalStatusString;
+    UITapGestureRecognizer* tapRecogniser;
     BOOL onScreen;
 }
 
@@ -109,6 +110,7 @@
     _statusFont = [UIFont systemFontOfSize:20.0];
     _minimumSize = CGSizeMake(150, 150);
     _dismissAfterAction = NO;
+    _dismissOnTap = NO;
     _hudBackgroundColor = [UIColor colorWithWhite:0 alpha:.8];
     //Add the proper views
     maskView = [[UIView alloc] init];
@@ -129,9 +131,17 @@
     if (_progressView != nil) {
         [backgroundView addSubview:_progressView];
     }
+    tapRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    [self addGestureRecognizer:tapRecogniser];
 }
 
 #pragma marks Properties
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
+{
+    if (_dismissOnTap)
+        [self hide:YES];
+}
 
 - (void)setProgressView:(M13ProgressView *)progressView
 {
