@@ -141,7 +141,13 @@
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
 {
     if (_dismissOnTap)
+    {
         [self hide:YES];
+
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"progressIndicator.onHide"
+         object:nil];        
+    }
 }
 
 - (void)setProgressView:(M13ProgressView *)progressView
